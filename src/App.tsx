@@ -1,18 +1,11 @@
-'use client';
-
 import React, { useState } from 'react';
 import { 
   Calendar, 
   BarChart3, 
   Users, 
-  Settings, 
   ChevronLeft, 
   ChevronRight,
-  Download,
-  Filter,
   Search,
-  Clock,
-  MapPin,
   MoreVertical,
   Plus,
   Edit2,
@@ -21,8 +14,8 @@ import {
   X
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { MOCK_DATA, STORES, MANAGERS, ScheduleEntry } from '@/lib/mock-data';
-import { db } from '@/lib/firebase';
+import { MOCK_DATA } from './lib/mock-data';
+import { db } from './lib/firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 const generateMonthDays = (year: number, month: number) => {
@@ -83,7 +76,7 @@ const getStatusBgColor = (type?: string) => {
   }
 };
 
-export default function SchedulePage() {
+export default function App() {
   const [activeTab, setActiveTab] = useState<'schedule' | 'stats' | 'management'>('schedule');
   const [searchQuery, setSearchQuery] = useState('');
   const [scheduleData, setScheduleData] = useState(MOCK_DATA);
@@ -431,7 +424,6 @@ export default function SchedulePage() {
                       </thead>
                       <tbody className="divide-y divide-gray-100">
                         {filteredData.map((manager) => {
-                          // Simple mock calculation for stats
                           const closingCount = Object.values(manager.schedule).filter(s => s.shiftType === '마감').length;
                           const openingCount = Object.values(manager.schedule).filter(s => s.shiftType === '오픈').length;
                           const totalWork = Object.values(manager.schedule).filter(s => s.shiftType !== '').length;
@@ -498,7 +490,7 @@ export default function SchedulePage() {
                 <div className="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
                   <div className="p-4 border-b border-gray-100 bg-gray-50/50 flex gap-4 items-center">
                     <div className="flex-1 relative">
-                      <MapPin className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                      <Plus className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                       <input 
                         type="text" placeholder="새 지점명 (예: 강남점)" 
                         value={newForm.store} onChange={e => setNewForm({...newForm, store: e.target.value})}
@@ -576,11 +568,6 @@ export default function SchedulePage() {
                           </td>
                         </tr>
                       ))}
-                      {scheduleData.length === 0 && (
-                        <tr>
-                          <td colSpan={3} className="p-8 text-center text-gray-400 text-sm">등록된 인원이 없습니다.</td>
-                        </tr>
-                      )}
                     </tbody>
                   </table>
                 </div>
