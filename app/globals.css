@@ -1,0 +1,33 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme {
+  --color-brand-primary: #1A1A1A;
+  --color-brand-secondary: #6B7280;
+  --color-shift-open: #DCFCE7;
+  --color-shift-open-text: #166534;
+  --color-shift-close: #FFEDD5;
+  --color-shift-close-text: #9A3412;
+  --color-shift-concurrent: #DBEAFE;
+  --color-shift-concurrent-text: #1E40AF;
+  --color-shift-off: #F3F4F6;
+  --color-shift-off-text: #4B5563;
+}
+
+@layer base {
+  body {
+    @apply bg-[#F8F9FA];
+  }
+}
+
+.glass-card {
+  @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-sm;
+}
+
+.schedule-grid-cell {
+  @apply border-r border-b border-gray-100 p-2 transition-all duration-200;
+}
+
+.schedule-grid-cell:hover {
+  @apply bg-gray-50/50;
+}
